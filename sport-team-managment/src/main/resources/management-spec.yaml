@@ -1,0 +1,90 @@
+openapi: "3.0.0"
+info:
+  version: 0.0.1
+  title: Sport Repo
+servers:
+  - url: http://localhost:7269/api/v1
+paths:
+  /createSchedule:
+    post:
+      summary: Add team schedule
+      description: Add team schedule
+      operationId: createSchedule
+      tags:
+        - Schedule
+      requestBody:
+        description: Required information for create schedule
+        required: true
+        content:
+          application/json:
+            schema:
+              "$ref": '#/components/schemas/ScheduleBody'
+      responses:
+        '200':
+          description: Created eventType
+          content:
+            application/json:
+              schema:
+                "$ref": '#/components/schemas/BaseResponse'
+        '400':
+          description: Request was wrong. Some fields in body might be missing or invalid.
+          content:
+            application/json:
+              schema:
+                "$ref": '#/components/schemas/Error'
+
+components:
+  schemas:
+    ScheduleBody:
+      required:
+        - teamId
+        - eventId
+        - startDate
+        - endDate
+      properties:
+        teamId:
+          type: integer
+          format: int64
+        eventId:
+          type: integer
+          format: int64
+        startDate:
+          type: string
+          format: date-time
+        endDate:
+          type: string
+          format: date-time
+    Schedule:
+      required:
+        - teamId
+        - eventId
+        - startDate
+        - endDate
+      properties:
+        teamId:
+          type: integer
+          format: int64
+        eventId:
+          type: integer
+          format: int64
+        startDate:
+          type: string
+          format: date-time
+        endDate:
+          type: string
+          format: date-time
+    BaseResponse:
+      required:
+        - msg
+      properties:
+        msg:
+          type: string
+    Error:
+      required:
+        - msg
+        - errorCode
+      properties:
+        msg:
+          type: string
+        errorCode:
+          type: integer

@@ -1,0 +1,47 @@
+server:
+  port: 7269
+spring:
+  application:
+    name: sport-service
+  datasource:
+    url: jdbc:postgresql://localhost:2998/sport?currentSchema=sportservice
+    driver-class-name: org.postgresql.Driver
+    username: postgres
+    password: postgres
+    hikari:
+      schema: sportservice
+  jpa:
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    show-sql: false
+    hibernate:
+      ddl-auto: validate
+    properties:
+      hibernate:
+        timezone:
+          default_storage: NORMALIZE
+        format_sql: true
+        dialect: org.hibernate.dialect.PostgresPlusDialect
+  flyway:
+    enabled: true
+    default-schema: sportservice
+  jmx:
+    enabled: true
+management:
+  endpoints:
+    web:
+      base-path: /management
+      exposure:
+        include: "*"
+    jmx:
+      exposure:
+        include: "*"
+
+springdoc:
+  swagger-ui:
+    use-root-path: true
+    disable-swagger-default-url: true
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka/

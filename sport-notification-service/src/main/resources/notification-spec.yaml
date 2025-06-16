@@ -1,0 +1,132 @@
+openapi: "3.0.0"
+info:
+  version: 0.0.1
+  title: Sport Repo
+servers:
+  - url: http://localhost:7269/api/v1
+paths:
+  /listeners:
+    get:
+      summary: List of listeners
+      description: Returns the list of all listeners
+      operationId: getAllListeners
+      tags:
+        - Listeners
+      responses:
+        '200':
+          description: List of all listeners
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  "$ref": '#/components/schemas/Listener'
+        '400':
+          description: Request was wrong. Some fields in body might be missing or invalid.
+          content:
+            application/json:
+              schema:
+                "$ref": '#/components/schemas/Error'
+  /listener:
+    post:
+      summary: Add listener to table
+      description: Add listener to table
+      operationId: addListener
+      tags:
+        - Listener
+      requestBody:
+        description: Required information for add listener
+        required: true
+        content:
+          application/json:
+            schema:
+              "$ref": '#/components/schemas/ListenerBody'
+      responses:
+        '200':
+          description: Created eventType
+          content:
+            application/json:
+              schema:
+                "$ref": '#/components/schemas/Listener'
+        '400':
+          description: Request was wrong. Some fields in body might be missing or invalid.
+          content:
+            application/json:
+              schema:
+                "$ref": '#/components/schemas/Error'
+
+  /sendNotification:
+    post:
+      summary: send notification about event
+      description: send notification about event
+      operationId: sendNotification
+      tags:
+        - Notification
+      requestBody:
+        description: Required information for send notification
+        required: true
+        content:
+          application/json:
+            schema:
+              "$ref": '#/components/schemas/InfoForSend'
+      responses:
+        '200':
+          description: Created eventType
+          content:
+            application/json:
+              schema:
+                "$ref": '#/components/schemas/BaseResponse'
+        '400':
+          description: Request was wrong. Some fields in body might be missing or invalid.
+          content:
+            application/json:
+              schema:
+                "$ref": '#/components/schemas/Error'
+
+
+components:
+  schemas:
+    Listener:
+      required:
+        - key
+        - email
+      properties:
+        key:
+          type: string
+          example: "competition"
+        email:
+          type: string
+          example: "test@test.com"
+    ListenerBody:
+      required:
+        - key
+        - email
+      properties:
+        key:
+          type: string
+          example: "competition"
+        email:
+          type: string
+          example: "test@test.com"
+    InfoForSend:
+      required:
+        - key
+      properties:
+        key:
+          type: string
+          example: "competition"
+    BaseResponse:
+      required:
+        - msg
+      properties:
+        msg:
+          type: string
+    Error:
+      required:
+        - msg
+        - errorCode
+      properties:
+        msg:
+          type: string
+        errorCode:
+          type: integer

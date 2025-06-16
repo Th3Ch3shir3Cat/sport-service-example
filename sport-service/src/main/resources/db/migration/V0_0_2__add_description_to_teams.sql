@@ -1,0 +1,1 @@
+ALTER TABLE sportService.teams ADD description VARCHAR(2000);

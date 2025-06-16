@@ -1,0 +1,288 @@
+openapi: "3.0.0"
+info:
+  version: 0.0.1
+  title: Sport Repo
+servers:
+  - url: http://localhost:7269/api/v1
+paths:
+  /getAllSport:
+    get:
+      summary: List of sports
+      description: Returns the list of all sports
+      operationId: getAllSports
+      tags:
+        - Sports
+      responses:
+        '200':
+          description: List of all sports
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  "$ref": '#/components/schemas/Sport'
+        '400':
+          description: Request was wrong. Some fields in body might be missing or invalid.
+          content:
+            application/json:
+              schema:
+                "$ref": '#/components/schemas/Error'
+  /sport:
+    post:
+      summary: Create sport
+      description: Create sport
+      operationId: createSport
+      tags:
+        - Sport
+      requestBody:
+        description: Required information to create sport
+        required: true
+        content:
+          application/json:
+            schema:
+              "$ref": '#/components/schemas/SportBody'
+      responses:
+        '200':
+          description: Created sport
+          content:
+            application/json:
+              schema:
+                "$ref": '#/components/schemas/Sport'
+        '400':
+          description: Request was wrong. Some fields in body might be missing or invalid.
+          content:
+            application/json:
+              schema:
+                "$ref": '#/components/schemas/Error'
+
+  /eventTypes:
+    get:
+      summary: List of event types
+      description: Returns the list of all event types
+      operationId: getAllEventTypes
+      tags:
+        - EventTypes
+      responses:
+        '200':
+          description: List of all event types
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  "$ref": '#/components/schemas/EventType'
+        '400':
+          description: Request was wrong. Some fields in body might be missing or invalid.
+          content:
+            application/json:
+              schema:
+                "$ref": '#/components/schemas/Error'
+  /eventType:
+    post:
+      summary: Create event type
+      description: Create eventType
+      operationId: createEventType
+      tags:
+        - EventType
+      requestBody:
+        description: Required information to create eventType
+        required: true
+        content:
+          application/json:
+            schema:
+              "$ref": '#/components/schemas/EventTypeBody'
+      responses:
+        '200':
+          description: Created eventType
+          content:
+            application/json:
+              schema:
+                "$ref": '#/components/schemas/EventType'
+        '400':
+          description: Request was wrong. Some fields in body might be missing or invalid.
+          content:
+            application/json:
+              schema:
+                "$ref": '#/components/schemas/Error'
+  /team:
+    put:
+      summary: Create or update team
+      description: Create or update team
+      operationId: createOrUpdateTeam
+      tags:
+        - Team
+      requestBody:
+        description: Required information to create or update team
+        required: true
+        content:
+          application/json:
+            schema:
+              "$ref": '#/components/schemas/TeamBody'
+      responses:
+        '200':
+          description: Created eventType
+          content:
+            application/json:
+              schema:
+                "$ref": '#/components/schemas/Team'
+        '400':
+          description: Request was wrong. Some fields in body might be missing or invalid.
+          content:
+            application/json:
+              schema:
+                "$ref": '#/components/schemas/Error'
+  /teams:
+    get:
+      summary: List of teams
+      description: Returns the list of all teams
+      operationId: getAllTeams
+      tags:
+        - Teams
+      responses:
+        '200':
+          description: List of all teams
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  "$ref": '#/components/schemas/Team'
+        '400':
+          description: Request was wrong. Some fields in body might be missing or invalid.
+          content:
+            application/json:
+              schema:
+                "$ref": '#/components/schemas/Error'
+  /events:
+    get:
+      summary: List of events
+      description: Returns the list of all events
+      operationId: getAllEvents
+      tags:
+        - Events
+      responses:
+        '200':
+          description: List of all events
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  "$ref": '#/components/schemas/Event'
+        '400':
+          description: Request was wrong. Some fields in body might be missing or invalid.
+          content:
+            application/json:
+              schema:
+                "$ref": '#/components/schemas/Error'
+  /event:
+    put:
+      summary: Create or update event
+      description: Create or update event
+      operationId: createOrUpdateEvent
+      tags:
+        - Event
+      requestBody:
+        description: Required information to create or update event
+        required: true
+        content:
+          application/json:
+            schema:
+              "$ref": '#/components/schemas/Event'
+      responses:
+        '200':
+          description: Created eventType
+          content:
+            application/json:
+              schema:
+                "$ref": '#/components/schemas/Event'
+        '400':
+          description: Request was wrong. Some fields in body might be missing or invalid.
+          content:
+            application/json:
+              schema:
+                "$ref": '#/components/schemas/Error'
+components:
+  schemas:
+    Sport:
+      required:
+        - name
+      properties:
+        name:
+          type: string
+          example: "Football"
+    SportBody:
+      required:
+        - name
+      properties:
+        name:
+          type: string
+          example: "Football"
+    EventTypeBody:
+      required:
+        - name
+      properties:
+        name:
+          type: string
+          example: "Test"
+    EventType:
+      required:
+        - name
+      properties:
+        name:
+          type: string
+          example: "Test"
+    Team:
+      required:
+        - name
+      properties:
+        name:
+          type: string
+          example: "Zenit"
+        description:
+          type: string
+          example: "test description"
+    TeamBody:
+      required:
+        - name
+        - description
+      properties:
+        name:
+          type: string
+          example: "Spartak"
+        description:
+          type: string
+          example: "test description"
+    Event:
+      required:
+        - name
+        - startTime
+        - endTime
+        - eventTypeName
+        - teams
+      properties:
+        name:
+          type: string
+          example: "Ivan"
+        startTime:
+          type: string
+          format: date-time
+        endTime:
+          type: string
+          format: date-time
+        eventTypeName:
+          type: string
+          example: "Football"
+        teams:
+          type: array
+          items:
+            $ref: "#/components/schemas/Team"
+    Error:
+      required:
+        - msg
+        - errorCode
+      properties:
+        msg:
+          type: string
+        errorCode:
+          type: integer
