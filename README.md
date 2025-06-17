@@ -83,3 +83,13 @@ service:
         processors: [ resourcedetection, resource/env ]
         exporters: [ otlp ]
 ```
+
+### Check and use api
+
+All services contain swagger ui
+
+http://localhost:7269/swagger-ui/index.html#/ - sport-service
+
+http://localhost:7554/swagger-ui/index.html#/ - sport-notification-service
+
+http://localhost:8672/swagger-ui/index.html#/ - sport-team-management
