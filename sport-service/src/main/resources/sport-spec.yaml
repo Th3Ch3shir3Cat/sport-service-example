@@ -277,6 +277,7 @@ components:
           type: array
           items:
             $ref: "#/components/schemas/Team"
+          example: [{"name":"Test1"}, {"name":"Test2"}]
     Error:
       required:
         - msg
